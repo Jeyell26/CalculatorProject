@@ -18,7 +18,7 @@ public class ConstantAngularAcceleration extends AFormula{
     @Override
     public String setVariable(String var, double value) {
         String returnValue;
-        if(var.equals("Angular Acc. (rad/s\u00B2)")){
+        if(var.equals("α (rad/s\u00B2)")){
             setAA(value);
             returnValue = String.valueOf(getAA());
         }
@@ -26,11 +26,11 @@ public class ConstantAngularAcceleration extends AFormula{
             setT(value);
             returnValue = String.valueOf(getT());
         }
-        else if(var.equals("Final Angular V (rad/s)")){
+        else if(var.equals("Final ω (rad/s)")){
             setFAV(value);
             returnValue = String.valueOf(getFAV());
         }
-        else{ // for when var.equals("Initial Angular V (rad/s)")
+        else{ // for when var.equals("Initial ω (rad/s)")
             setIAV(value);
             returnValue = String.valueOf(getIAV());
         }

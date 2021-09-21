@@ -10,6 +10,8 @@ public class Calculator extends GraphicsProgram {
     FinalVelocityFormula e2 = new FinalVelocityFormula();
     // Global Variable for Equation 3
     ConstantAngularAcceleration e3 = new ConstantAngularAcceleration();
+    // Global Variable for Equation 4
+    AngularMomentum e4 = new AngularMomentum();
 
     // Main calculator variable
     CalculatorLayout calc = new CalculatorLayout(680);
@@ -187,7 +189,7 @@ public class Calculator extends GraphicsProgram {
         if(missingVarIndex==(missingVar-1)){
             missingVarIndex++;
         }
-        remove(e2);
+        remove(e3);
         if(missingVarIndex==e3.numOfMissingVar){
             calc.clearMemoDisplay();
             calc.clearNumBuffer();
@@ -204,6 +206,27 @@ public class Calculator extends GraphicsProgram {
         }
     }
 
+    private void performE4(int missingVar){
+        if(missingVarIndex==(missingVar-1)){
+            missingVarIndex++;
+        }
+        remove(e4);
+        if(missingVarIndex==e4.numOfMissingVar){
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e4.getVariable(missingVar-1) + ": " + e4.generateFormula(String.valueOf(missingVar)));
+            missingVarIndex = 0;
+        }
+        else{
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e4.getVariable(missingVarIndex) + ": ");
+            missingVarIndex++;
+        }
+    }
+
     // Is used for removing all formula menus before placing a new one as well as clearing both memo and main display
     private void resetFormulaMenu()
     {
@@ -213,7 +236,7 @@ public class Calculator extends GraphicsProgram {
         remove(e1);
         remove(e2);
         remove(e3);
-//        remove(e4);
+        remove(e4);
 //        remove(e5);
 //        remove(e6);
     }
@@ -243,15 +266,12 @@ public class Calculator extends GraphicsProgram {
             add(e3);
             eqBuffer = input;
         }
-//        if(input.equals("E4 ")){
-//            remove(e1);
-//            missingVarIndex = 0;
-//            calc.clearMemoDisplay();
-//            calc.clearMainDisplay();
-//            e4.missingFormulaMenu();
-//            add(e4);
-//            eqBuffer = input;
-//        }
+        if(input.equals("E4 ")){
+            resetFormulaMenu();
+            e4.missingFormulaMenu();
+            add(e4);
+            eqBuffer = input;
+        }
 
         //        if(input.equals("E5 ")){
 //            remove(e1);
@@ -366,9 +386,11 @@ public class Calculator extends GraphicsProgram {
                         e3.setVariable(e3.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
                     performE3(Integer.parseInt(varChoice));
                 }
-//                else if(eqBuffer.equals("E4 ")){
-//                    performE4(Integer.parseInt(varChoice));
-//                }
+                else if(eqBuffer.equals("E4 ")){
+                    if(!firstNext)
+                        e4.setVariable(e4.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
+                    performE4(Integer.parseInt(varChoice));
+                }
 //                else if(eqBuffer.equals("E5 ")){
 //                    performE5(Integer.parseInt(varChoice));
 //                }
