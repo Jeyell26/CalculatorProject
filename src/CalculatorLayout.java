@@ -7,14 +7,16 @@
  *
  */
 
-
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
 
+import java.awt.*;
+
 public class CalculatorLayout extends GCompound {
 
-    // Constructor para madisplay mga E1 sa calculator
+    private final int WIDTH = 400;
+    private final int HEIGHT = 825;
     private static final int NROWS = 7;     /* Number of rows    */
     private static final int NCOLS = 4;     /* Number of columns */
     private static final int MARGIN = 20;
@@ -39,73 +41,57 @@ public class CalculatorLayout extends GCompound {
         double sqSize = height / (NROWS + 1);
         numBuffer = new StringBuilder();
         clearNumBuffer();
-        mainDisplay = new GLabel(numBuffer.toString(), MARGIN, MARGIN + 120);
+        mainDisplay = new GLabel(numBuffer.toString(), MARGIN, MARGIN + 125);
         mainDisplay.setFont(MAIN_FONT);
 
         memoBuffer = new StringBuilder();
-        memoDisplay = new GLabel("", MARGIN, MARGIN + 70);
+        memoDisplay = new GLabel("", MARGIN, 2 * MARGIN);
         memoDisplay.setFont(MEMO_FONT);
+
+        // Background
+        GRect bg = new GRect(WIDTH,HEIGHT);
+        bg.setFilled(true);
+        bg.setFillColor(Color.gray);
+        add(bg);
 
         add(mainDisplay);
         add(memoDisplay);
 
         int count = 0;
-        int x = 88;
-        int y = 190;
-        MyButton myButton;
-        MyButtonFormula myFormula;
-        GRect button;
         for (int i = 1; i <= NROWS; i++) {
             for (int j = 0; j < NCOLS; j++) {
+                double x = MARGIN + j * sqSize;
+                double y = i * sqSize - MARGIN + 90;
+                MyButton myButton;
                 if (count == 8) {
-                    myButton = new MyButton(63, y, sqSize, sqSize, "CE" + labels[count++]);
-                    button = new GRect(15, 70 + 85 * i, 85, 85);
-                    add(myButton);
-                } else if (count == 0) {
-                    myFormula = new MyButtonFormula(63, y, sqSize, sqSize, "E1" + labels[count++]);
-                    button = new GRect(15, 70 + 85 * i, 85, 85);
-                    add(myFormula);
-                } else if (count == 1) {
-                    myFormula = new MyButtonFormula(145, y, sqSize, sqSize, "E2" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myFormula);
-                } else if (count == 2) {
-                    myFormula = new MyButtonFormula(229, y, sqSize, sqSize, "E3" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myFormula);
-                } else if (count == 3) {
-                    myFormula = new MyButtonFormula(313, y, sqSize, sqSize, "E4" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myFormula);
-                } else if (count == 4) {
-                    myFormula = new MyButtonFormula(63, y, sqSize, sqSize, "E5" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myFormula);
-                } else if (count == 5) {
-                    myFormula = new MyButtonFormula(145, y, sqSize, sqSize, "E6" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myFormula);
-                } else if (count == 6) {
-                    myFormula = new MyButtonFormula(230, y, sqSize, sqSize, "Mat" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myFormula);
-                } else if (j == 0) {
-                    myButton = new MyButton(53, y, sqSize, sqSize, "" + labels[count++]);
-                    button = new GRect(15, 70 + 85 * i, 85, 85);
-                    add(myButton);
-                } else if (count > 8) {
-                    myButton = new MyButton(x * j + 50, y, sqSize, sqSize, "" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myButton);
-                } else {
-                    myButton = new MyButton(x * j + 50, y, sqSize, sqSize, "" + labels[count++]);
-                    button = new GRect(15 + 85 * j, 70 + 85 * i, 85, 85);
-                    add(myButton);
+                    myButton = new MyButton(x, y, sqSize, sqSize, "CE" + labels[count++]);
                 }
-
-                add(button);
+                else if(count == 0){
+                    myButton = new MyButton(x, y, sqSize, sqSize, "E1" + labels[count++]);
+                }
+                else if(count == 1){
+                    myButton = new MyButton(x, y, sqSize, sqSize, "E2" + labels[count++]);
+                }
+                else if(count == 2){
+                    myButton = new MyButton(x, y, sqSize, sqSize, "E3" + labels[count++]);
+                }
+                else if(count == 3){
+                    myButton = new MyButton(x, y, sqSize, sqSize, "E4" + labels[count++]);
+                }
+                else if(count == 4){
+                    myButton = new MyButton(x, y, sqSize, sqSize, "E5" + labels[count++]);
+                }
+                else if(count == 5){
+                    myButton = new MyButton(x, y, sqSize, sqSize, "E6" + labels[count++]);
+                }
+                else if(count == 6){
+                    myButton = new MyButton(x, y, sqSize, sqSize, "Next" + labels[count++]);
+                }
+                else{
+                    myButton = new MyButton(x, y, sqSize, sqSize, "" + labels[count++]);
+                }
+                add(myButton);
             }
-            y += 85;
         }
     }
 
@@ -206,4 +192,11 @@ public class CalculatorLayout extends GCompound {
         mainDisplay.setLabel(numBuffer.toString());
     }
 
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
 }

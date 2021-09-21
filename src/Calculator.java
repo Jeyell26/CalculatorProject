@@ -3,11 +3,16 @@ import acm.program.GraphicsProgram;
 
 import java.awt.event.MouseEvent;
 
-// TRY
-
 public class Calculator extends GraphicsProgram {
+    // Global Variable for Equation 1
+    FinalPositionFormula e1 = new FinalPositionFormula();
+    // Global Variable for Equation 2
+    FinalVelocityFormula e2 = new FinalVelocityFormula();
+    // Global Variable for Equation 3
+    ConstantAngularAcceleration e3 = new ConstantAngularAcceleration();
+
     // Main calculator variable
-    CalculatorLayout calc = new CalculatorLayout(700);
+    CalculatorLayout calc = new CalculatorLayout(680);
     // Object variable
     GObject object;
     // Input string
@@ -19,9 +24,19 @@ public class Calculator extends GraphicsProgram {
     double db1, db2;
     // Characters
     char opBuffer;
+    // Previous Equation
+    String eqBuffer = "";
+    // Previous Choice in Equation
+    String varChoice;
+    // Index for variable array in formula classes
+    int missingVarIndex=0;
+    // Previous Command Used is Next
+    boolean wasNext = false;
+
+    boolean firstNext = true;
 
     public void run() {
-        setSize(520, 760);
+        setSize(calc.getWIDTH(),calc.getHEIGHT());
         addMouseListeners();
         add(calc);
         initBooleans();
@@ -110,6 +125,7 @@ public class Calculator extends GraphicsProgram {
     Boolean secondInstance = false;
     Boolean nInstance;
     Boolean wasEquals;
+
     private void initBooleans(){
         isDeletable = false;
         wasNumber = false;
@@ -117,27 +133,165 @@ public class Calculator extends GraphicsProgram {
         performOperator = false;
         nInstance = false;
         wasEquals = false;
+        firstNext = true;
         Operand1 = "";
         Operand2 = "";
         opBuffer = ' ';
     }
 
+    private void performE1(int missingVar){
+        if(missingVarIndex==(missingVar-1)){
+            missingVarIndex++;
+        }
+        remove(e1);
+
+        // Is done after inputting the last variable after pressing next
+        if(missingVarIndex==e1.numOfMissingVar){
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e1.getVariable(missingVar-1) + ": " + e1.generateFormula(String.valueOf(missingVar)));
+            missingVarIndex = 0;
+        }
+        else{
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e1.getVariable(missingVarIndex) + ": ");
+            missingVarIndex++;
+        }
+    }
+
+    private void performE2(int missingVar){
+        if(missingVarIndex==(missingVar-1)){
+            missingVarIndex++;
+        }
+        remove(e2);
+        if(missingVarIndex==e2.numOfMissingVar){
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e2.getVariable(missingVar-1) + ": " + e2.generateFormula(String.valueOf(missingVar)));
+            missingVarIndex = 0;
+        }
+        else{
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e2.getVariable(missingVarIndex) + ": ");
+            missingVarIndex++;
+        }
+    }
+
+//    private void performE3(int missingVar){
+//        if(missingVarIndex==(missingVar-1)){
+//            missingVarIndex++;
+//        }
+//        remove(e2);
+//        if(missingVarIndex==e3.numOfMissingVar){
+//            calc.clearMemoDisplay();
+//            calc.clearNumBuffer();
+//            calc.setMainDisplay("0");
+//            calc.setMemoDisplay(e3.getVariable(missingVar-1) + ": " + e3.generateFormula(String.valueOf(missingVar)));
+//            missingVarIndex = 0;
+//        }
+//        else{
+//            calc.clearMemoDisplay();
+//            calc.clearNumBuffer();
+//            calc.setMainDisplay("0");
+//            calc.setMemoDisplay(e3.getVariable(missingVarIndex) + ": ");
+//            missingVarIndex++;
+//        }
+//    }
+
+    // Is used for removing all formula menus before placing a new one as well as clearing both memo and main display
+    private void resetFormulaMenu()
+    {
+        missingVarIndex = 0;
+        calc.clearMemoDisplay();
+        calc.clearMainDisplay();
+        remove(e1);
+        remove(e2);
+        remove(e3);
+//        remove(e4);
+//        remove(e5);
+//        remove(e6);
+    }
+
     private void processButton(){
+        int[] givenValues = new int[5];
         // If its the starter ones
         // I. Handle special cases: Clear Element, Clear All, and  Delete
+
+        if(input.equals("E1 ")){
+            resetFormulaMenu();
+            e1.missingFormulaMenu();
+            add(e1);
+            eqBuffer = input;
+        }
+
+        if(input.equals("E2 ")){
+            resetFormulaMenu();
+            e2.missingFormulaMenu();
+            add(e2);
+            eqBuffer = input;
+        }
+
+//        if(input.equals("E3 ")){
+//            resetFormulaMenu();
+//            e3.missingFormulaMenu();
+//            add(e3);
+//            eqBuffer = input;
+//        }
+//        if(input.equals("E4 ")){
+//            remove(e1);
+//            missingVarIndex = 0;
+//            calc.clearMemoDisplay();
+//            calc.clearMainDisplay();
+//            e4.missingFormulaMenu();
+//            add(e4);
+//            eqBuffer = input;
+//        }
+
+        //        if(input.equals("E5 ")){
+//            remove(e1);
+//            missingVarIndex = 0;
+//            calc.clearMemoDisplay();
+//            calc.clearMainDisplay();
+//            e5.missingFormulaMenu();
+//            add(e5);
+//            eqBuffer = input;
+//        }
+
+        //        if(input.equals("E6 ")){
+//            remove(e1);
+//            missingVarIndex = 0;
+//            calc.clearMemoDisplay();
+//            calc.clearMainDisplay();
+//            e6.missingFormulaMenu();
+//            add(e6);
+//            eqBuffer = input;
+//        }
+
         if (input.equals("CE ")) {
             // clears main display
             calc.clearMainDisplay();
             System.out.println("Clear Element");
+            wasNext = false;
             return;
         }
         if (input.equals("C")) {
+            missingVarIndex = 0;
             calc.clearMainDisplay();
             calc.clearMemoDisplay();
+            // Remove display in e1 memo
+            remove(e1);
+            remove(e2);
             initBooleans();
             firstInstance = true;
             secondInstance = false;
             System.out.println("Clear Called");
+            wasNext = false;
             return;
         }
         if (input.equals("⌫") && isDeletable) {
@@ -147,6 +301,25 @@ public class Calculator extends GraphicsProgram {
         }
         // II. Handle Number Inputs;
         if(isNumeric(input)){
+            // To know which equation should be used to compute
+            if((eqBuffer.equals("E1 ") || eqBuffer.equals("E2 ") || eqBuffer.equals("E3 ") || eqBuffer.equals("E4 ") || eqBuffer.equals("E5 ") || eqBuffer.equals("E6 ")) && missingVarIndex == 0){
+                varChoice = input;
+                wasNext = false;
+            }
+
+// After pressing next - UPDATE: the setting of the value is put in the operator input "next" instead
+//            if(wasNext){
+//                if(eqBuffer.equals("E1 ")){
+//                    e1.setVariable(e1.getVariable(missingVarIndex-1),Double.parseDouble(input));
+//                    calc.setMainDisplay(input);
+//                    calc.setMemoDisplay(input);
+//                }
+//                if(eqBuffer.equals("E2 ")){
+//                    e2.setVariable(e2.getVariable(missingVarIndex-1),Double.parseDouble(input));
+//                    calc.setMainDisplay(input);
+//                    calc.setMemoDisplay(input);
+//                }
+//            }
             if(wasOperator){
                 calc.clearMainDisplay();
                 calc.setMainDisplay("0");
@@ -157,6 +330,8 @@ public class Calculator extends GraphicsProgram {
                 firstInstance = true;
                 secondInstance = false;
             }
+
+            wasNext = false;
             wasOperator = false;
             wasNumber = true;
             wasEquals = false;
@@ -166,13 +341,43 @@ public class Calculator extends GraphicsProgram {
         }
         if(input.equals(".")){
             if(!calc.getMainDisplay().contains(".")){
-               calc.setMainDisplay(input.charAt(0));
+                calc.setMainDisplay(input.charAt(0));
             }
         }
         if(input.equals("±")){
             calc.negateElement();
         }
+
         // III. Operator Inputs;
+        if(input.equals("Next ")){
+            if(wasNumber){
+                if(eqBuffer.equals("E1 ")){
+                    if(!firstNext)
+                        e1.setVariable(e1.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
+                    performE1(Integer.parseInt(varChoice));
+                }
+                else if(eqBuffer.equals("E2 ")){
+                    if(!firstNext)
+                        e2.setVariable(e2.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
+                    performE2(Integer.parseInt(varChoice));
+                }
+//                else if(eqBuffer.equals("E3 ")){
+//                    performE3(Integer.parseInt(varChoice));
+//                }
+//                else if(eqBuffer.equals("E4 ")){
+//                    performE4(Integer.parseInt(varChoice));
+//                }
+//                else if(eqBuffer.equals("E5 ")){
+//                    performE5(Integer.parseInt(varChoice));
+//                }
+//                else if(eqBuffer.equals("E6 ")){
+//                    performE6(Integer.parseInt(varChoice));
+//                }
+            }
+            wasNext=true;
+            firstNext = false;
+        }
+
         if(input.equals("=") || input.equals("+") || input.equals("-") || input.equals("÷") || input.equals("x")){
             // If previous input was a operator
             if(wasOperator){
@@ -257,4 +462,4 @@ public class Calculator extends GraphicsProgram {
             performOperator = true;
         }
     }
-    }
+}
