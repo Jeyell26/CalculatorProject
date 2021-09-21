@@ -7,8 +7,8 @@ public class FinalVelocityFormula extends AFormula{
     private double Xf;
     private double X0;
     private final String[] varList= {
-            "Vf","V0","a",
-            "Xf","X0"};
+            "Vf (m/s)","V0 (m/s)","a (m/s\u00B2)",
+            "Xf (m)","X0 (m)"};
     public final int numOfMissingVar = 5;
 
     @Override
@@ -19,23 +19,23 @@ public class FinalVelocityFormula extends AFormula{
     @Override
     public String setVariable(String var, double value) {
         String returnValue;
-        if(var.equals("Vf")){
+        if(var.equals("Vf (m/s)")){
             setVf(value);
             returnValue = String.valueOf(getVf());
         }
-        else if(var.equals("V0")){
+        else if(var.equals("V0 (m/s)")){
             setV0(value);
             returnValue = String.valueOf(getV0());
         }
-        else if(var.equals("a")){
+        else if(var.equals("a (m/s\u00B2)")){
             setA(value);
             returnValue = String.valueOf(getA());
         }
-        else if(var.equals("Xf")){
+        else if(var.equals("Xf (m)")){
             setXf(value);
             returnValue = String.valueOf(getXf());
         }
-        else{
+        else{ // X0 (m)
             setX0(value);
             returnValue = String.valueOf(getX0());
         }
@@ -72,12 +72,17 @@ public class FinalVelocityFormula extends AFormula{
 
     @Override
     public void missingFormulaMenu() {
-        for (int i = 0; i < 5; i++) {
-            if(i<3) {
-                option = new GLabel("[" + (i+1) + "] " + varList[i],20,20+30*i);
+        // adds the name of the equation
+        option = new GLabel("Final Velocity Formula",20,20);
+        option.setFont(FONT);
+        add(option);
+
+        for (int i = 0; i < varList.length; i++) {
+            if(i<2) {
+                option = new GLabel("[" + (i+1) + "] " + varList[i],20,45+30*i);
             }
             else{
-                option = new GLabel("[" + (i+1) + "] " + varList[i],130,-70+30*i);
+                option = new GLabel("[" + (i+1) + "] " + varList[i],190,-15+30*i);
             }
             option.setFont(FONT);
             add(option);

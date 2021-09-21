@@ -10,6 +10,33 @@ public class ConstantAngularAcceleration extends AFormula{
             "Initial ω (rad/s)"};
     public final int numOfMissingVar = 4;
 
+    // Getters and Setters
+    public double getAA() {
+        return aa;
+    }
+    public void setAA(double aa) { this.aa = aa; }
+
+    public double getT() {
+        return t;
+    }
+    public void setT(double t) {
+        this.t = t;
+    }
+
+    public double getFAV() {
+        return fav;
+    }
+    public void setFAV(double fav) {
+        this.fav = fav;
+    }
+
+    public double getIAV() {
+        return iav;
+    }
+    public void setIAV(double iav) {
+        this.iav = iav;
+    }
+
     @Override
     public String getVariable(int index) {
         return varList[index];
@@ -66,7 +93,7 @@ public class ConstantAngularAcceleration extends AFormula{
     public void missingFormulaMenu() {
         // adds the name of the equation
         option = new GLabel("Constant Angular Acceleration",20,20);
-        option.setFont("SansSerif-bold-19");
+        option.setFont(FONT);
         add(option);
 
         for (int i = 0; i < varList.length; i++) {
@@ -74,9 +101,9 @@ public class ConstantAngularAcceleration extends AFormula{
                 option = new GLabel("[" + (i+1) + "] " + varList[i],20,45+30*i);
             }
             else{
-                option = new GLabel("[" + (i+1) + "] " + varList[i],190,-15+30*i);
+                option = new GLabel("[" + (i+1) + "] " + varList[i],170,-15+30*i);
             }
-            option.setFont("SansSerif-bold-19");
+            option.setFont(FONT);
             add(option);
         }
     }
@@ -104,32 +131,5 @@ public class ConstantAngularAcceleration extends AFormula{
     {
         iav = userFAV + (userAA*userT);
         return iav;
-    }
-
-    // Getters and Setters
-    public double getAA() {
-        return aa;
-    }
-    public void setAA(double aa) { this.aa = aa; }
-
-    public double getT() {
-        return t;
-    }
-    public void setT(double t) {
-        this.t = t;
-    }
-
-    public double getFAV() {
-        return fav;
-    }
-    public void setFAV(double fav) {
-        this.fav = fav;
-    }
-
-    public double getIAV() {
-        return iav;
-    }
-    public void setIAV(double iav) {
-        this.iav = iav;
     }
 }

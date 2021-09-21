@@ -138,12 +138,17 @@ public class AngularMomentum extends AFormula{
 
     @Override
     public void missingFormulaMenu() {
+        // adds the name of the equation
+        option = new GLabel("Angular Momentum",20,20);
+        option.setFont(FONT);
+        add(option);
+
         for (int i = 0; i < varList.length; i++) {
-            if(i<3) {
-                option = new GLabel("[" + (i+1) + "] " + varList[i],20,20+30*i);
+            if(i<2) {
+                option = new GLabel("[" + (i+1) + "] " + varList[i],20,45+30*i);
             }
             else{
-                option = new GLabel("[" + (i+1) + "] " + varList[i],220,-70+30*i);
+                option = new GLabel("[" + (i+1) + "] " + varList[i],210,-15+30*i);
             }
             option.setFont(FONT);
             add(option);

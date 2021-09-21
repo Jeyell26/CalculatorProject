@@ -7,8 +7,8 @@ public class FinalPositionFormula extends AFormula{
     private double t;
     private double a;
     private final String[] varList= {
-            "Xf","X0","V0",
-            "t","a"};
+            "Xf (m)","X0 (m)","V0 (m/s)",
+            "t (s)","a (m/s\u00B2)"};
     public final int numOfMissingVar = 5;
 
     @Override
@@ -41,12 +41,17 @@ public class FinalPositionFormula extends AFormula{
 
     @Override
     public void missingFormulaMenu() {
-        for (int i = 0; i < 5; i++) {
-            if(i<3) {
-                option = new GLabel("[" + (i+1) + "] " + varList[i],20,20+30*i);
+        // adds the name of the equation
+        option = new GLabel("Final Position Formula",20,20);
+        option.setFont(FONT);
+        add(option);
+
+        for (int i = 0; i < varList.length; i++) {
+            if(i<2) {
+                option = new GLabel("[" + (i+1) + "] " + varList[i],20,45+30*i);
             }
             else{
-                option = new GLabel("[" + (i+1) + "] " + varList[i],130,-70+30*i);
+                option = new GLabel("[" + (i+1) + "] " + varList[i],170,-15+30*i);
             }
             option.setFont(FONT);
             add(option);
@@ -93,23 +98,23 @@ public class FinalPositionFormula extends AFormula{
     @Override
     public String setVariable(String var, double value){
         String returnValue;
-        if(var.equals("Xf")){
+        if(var.equals("Xf (m)")){
             setXf(value);
             returnValue = String.valueOf(getXf());
         }
-        else if(var.equals("X0")){
+        else if(var.equals("X0 (m)")){
             setX0(value);
             returnValue = String.valueOf(getX0());
         }
-        else if(var.equals("V0")){
+        else if(var.equals("V0 (m/s)")){
             setV0(value);
             returnValue = String.valueOf(getV0());
         }
-        else if(var.equals("t")){
+        else if(var.equals("t (s)")){
             setT(value);
             returnValue = String.valueOf(getT());
         }
-        else{
+        else{ // a (m/s²)
             setA(value);
             returnValue = String.valueOf(getA());
         }
