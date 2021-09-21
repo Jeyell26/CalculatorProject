@@ -183,26 +183,26 @@ public class Calculator extends GraphicsProgram {
         }
     }
 
-//    private void performE3(int missingVar){
-//        if(missingVarIndex==(missingVar-1)){
-//            missingVarIndex++;
-//        }
-//        remove(e2);
-//        if(missingVarIndex==e3.numOfMissingVar){
-//            calc.clearMemoDisplay();
-//            calc.clearNumBuffer();
-//            calc.setMainDisplay("0");
-//            calc.setMemoDisplay(e3.getVariable(missingVar-1) + ": " + e3.generateFormula(String.valueOf(missingVar)));
-//            missingVarIndex = 0;
-//        }
-//        else{
-//            calc.clearMemoDisplay();
-//            calc.clearNumBuffer();
-//            calc.setMainDisplay("0");
-//            calc.setMemoDisplay(e3.getVariable(missingVarIndex) + ": ");
-//            missingVarIndex++;
-//        }
-//    }
+    private void performE3(int missingVar){
+        if(missingVarIndex==(missingVar-1)){
+            missingVarIndex++;
+        }
+        remove(e2);
+        if(missingVarIndex==e3.numOfMissingVar){
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e3.getVariable(missingVar-1) + ": " + e3.generateFormula(String.valueOf(missingVar)));
+            missingVarIndex = 0;
+        }
+        else{
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e3.getVariable(missingVarIndex) + ": ");
+            missingVarIndex++;
+        }
+    }
 
     // Is used for removing all formula menus before placing a new one as well as clearing both memo and main display
     private void resetFormulaMenu()
@@ -237,12 +237,12 @@ public class Calculator extends GraphicsProgram {
             eqBuffer = input;
         }
 
-//        if(input.equals("E3 ")){
-//            resetFormulaMenu();
-//            e3.missingFormulaMenu();
-//            add(e3);
-//            eqBuffer = input;
-//        }
+        if(input.equals("E3 ")){
+            resetFormulaMenu();
+            e3.missingFormulaMenu();
+            add(e3);
+            eqBuffer = input;
+        }
 //        if(input.equals("E4 ")){
 //            remove(e1);
 //            missingVarIndex = 0;
@@ -361,9 +361,11 @@ public class Calculator extends GraphicsProgram {
                         e2.setVariable(e2.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
                     performE2(Integer.parseInt(varChoice));
                 }
-//                else if(eqBuffer.equals("E3 ")){
-//                    performE3(Integer.parseInt(varChoice));
-//                }
+                else if(eqBuffer.equals("E3 ")){
+                    if(!firstNext)
+                        e3.setVariable(e3.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
+                    performE3(Integer.parseInt(varChoice));
+                }
 //                else if(eqBuffer.equals("E4 ")){
 //                    performE4(Integer.parseInt(varChoice));
 //                }
