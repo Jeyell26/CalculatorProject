@@ -227,6 +227,16 @@ public class Calculator extends GraphicsProgram {
         }
     }
 
+    private void removeAllMenus()
+    {
+        remove(e1);
+        remove(e2);
+        remove(e3);
+        remove(e4);
+//        remove(e5);
+//        remove(e6);
+    }
+
     // Is used for removing all formula menus before placing a new one as well as clearing both memo and main display
     private void resetFormulaMenu()
     {
@@ -304,9 +314,7 @@ public class Calculator extends GraphicsProgram {
             missingVarIndex = 0;
             calc.clearMainDisplay();
             calc.clearMemoDisplay();
-            // Remove display in e1 memo
-            remove(e1);
-            remove(e2);
+            removeAllMenus();
             initBooleans();
             firstInstance = true;
             secondInstance = false;

@@ -66,10 +66,10 @@ public class AngularMomentum extends AFormula{
             returnValue = String.valueOf(getV());
         }
         else if(var.equals("d (m)")){
-            setV(value);
-            returnValue = String.valueOf(getV());
+            setD(value);
+            returnValue = String.valueOf(getD());
         }
-        else{ // for when var.equals("angle (°)")
+        else { // for when var.equals("angle (°)")
             setA(value);
             returnValue = String.valueOf(getA());
         }
