@@ -60,34 +60,36 @@ public class FinalPositionFormula extends AFormula{
 
     public double findXF(double userX0,double userV0,double userT,double userA){
         Xf = userX0 + userV0*userT + ((userA*userT*userT)/2);
-        return Xf;
+        temp = Math.round(Xf*100.0)/100.0;
+        return temp;
     }
 
     public double findX0(double userXf,double userV0,double userT,double userA){
         X0 = userXf - userV0*userT - ((userA*userT*userT)/2);
-        return X0;
+        temp = Math.round(X0*100.0)/100.0;
+        return temp;
     }
 
     public double findV0(double userXf,double userX0,double userT,double userA){
         V0 = (userXf - userX0 - ((userA*userT*userT)/2))/userT;
-        return V0;
+        temp = Math.round(V0*100.0)/100.0;
+        return temp;
     }
 
     public double findT(double userXf,double userX0,double userV0,double userA){
         double discriminant = (userV0*userV0)-(2*(userA)*(userX0-userXf));
         t = ((-userV0)+Math.sqrt(discriminant))/userA;
-        if(t>0){
-            return t;
+        if (!(t > 0)) {
+            t = ((-userV0) - Math.sqrt(discriminant)) / userA;
         }
-        else{
-            t = ((-userV0)-Math.sqrt(discriminant))/userA;
-            return t;
-        }
+        temp = Math.round(t*100.0)/100.0;
+        return temp;
     }
 
     public double findA(double userXf,double userX0,double userV0,double userT){
         a = (2*(userXf - userX0 - (userV0*userT)))/(userT*userT);
-        return a;
+        temp = Math.round(a*100.0)/100.0;
+        return temp;
     }
 
     @Override

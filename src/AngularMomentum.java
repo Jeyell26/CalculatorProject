@@ -76,35 +76,41 @@ public class AngularMomentum extends AFormula{
         return returnValue;
     }
 
-    // For Calculating a variable
+    // For Calculating a variable - two decimal places
     public double findL(double userM, double userV, double userD, double userA)
     {
+
         l = userM*userV*userD*(Math.sin(userA));
-        return l;
+        temp = Math.round(l*100.0)/100.0;
+        return temp;
     }
 
     public double findM(double userL, double userV, double userD, double userA)
     {
         m = userL/(userV*userD*Math.sin(userA));
-        return m;
+        temp = Math.round(m*100.0)/100.0;
+        return temp;
     }
 
     public double findV(double userL, double userM, double userD, double userA)
     {
         v = userL/(userM*userD*Math.sin(userA));
-        return v;
+        temp = Math.round(v*100.0)/100.0;
+        return temp;
     }
 
     public double findD(double userL, double userM, double userV, double userA)
     {
         d = userL/(userM*userV*Math.sin(userA));
-        return d;
+        temp = Math.round(d*100.0)/100.0;
+        return temp;
     }
 
     public double findA(double userL, double userM, double userV, double userD)
     {
         a = Math.asin(userL/(userM*userV*userD));
-        return a;
+        temp = Math.round(a*100.0)/100.0;
+        return temp;
     }
 
     @Override

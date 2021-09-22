@@ -108,28 +108,32 @@ public class ConstantAngularAcceleration extends AFormula{
         }
     }
 
-    // For Calculating a variable
+    // For Calculating a variable - two decimal places
     public double findAA(double userFAV, double userIAV, double userT)
     {
         aa = ((userFAV - userIAV)/userT);
-        return aa;
+        temp = Math.round(aa*100.0)/100.0;
+        return temp;
     }
 
     public double findT(double userFAV, double userIAV, double userAA)
     {
         t = ((userFAV - userIAV)/userAA);
-        return t;
+        temp = Math.round(t*100.0)/100.0;
+        return temp;
     }
 
     public double findFAV(double userIAV, double userAA, double userT)
     {
         fav = userIAV + (userAA*userT);
-        return fav;
+        temp = Math.round(fav*100.0)/100.0;
+        return temp;
     }
 
     public double findIAV(double userFAV, double userAA, double userT)
     {
         iav = userFAV + (userAA*userT);
-        return iav;
+        temp = Math.round(iav*100.0)/100.0;
+        return temp;
     }
 }

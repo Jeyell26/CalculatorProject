@@ -5,6 +5,7 @@ public abstract class AFormula extends GCompound {
     protected String unknown;
     protected String FONT = "SansSerif-bold-24";
     protected GLabel option;
+    protected double temp;
 
     public abstract String getVariable(int index);
 

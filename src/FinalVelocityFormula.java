@@ -91,27 +91,32 @@ public class FinalVelocityFormula extends AFormula{
 
     public double findVF(double userV0,double userA,double userXf,double userX0){
         Vf = Math.sqrt((userV0*userV0) + (2*userA*(userXf - userX0)));
-        return Vf;
+        temp = Math.round(Vf*100.0)/100.0;
+        return temp;
     }
 
     public double findV0(double userVf,double userA,double userXf,double userX0){
         V0 = Math.sqrt((userVf*userVf) - (2*userA*(userXf - userX0)));
-        return V0;
+        temp = Math.round(V0*100.0)/100.0;
+        return temp;
     }
 
     public double findA(double userVf,double userV0,double userXf,double userX0){
         a = ((userVf*userVf)-(userV0*userV0))/(2*(userXf-userX0));
-        return a;
+        temp = Math.round(a*100.0)/100.0;
+        return temp;
     }
 
     public double findXF(double userVf,double userV0,double userA,double userX0){
         Xf = ((userVf*userVf)-(userV0*userV0)+(2*userA*userX0))/(2*userA);
-        return Xf;
+        temp = Math.round(Xf*100.0)/100.0;
+        return temp;
     }
 
     public double findX0(double userVf,double userV0,double userA,double userXf){
         X0 = ((2*userA*userXf)-(userVf*userVf)+(userV0*userV0))/(2*userA);
-        return X0;
+        temp = Math.round(X0*100.0)/100.0;
+        return temp;
     }
 
     public FinalVelocityFormula(){
