@@ -117,7 +117,7 @@ public class GravitationalForce extends AFormula{
     @Override
     public void missingFormulaMenu() {
         // adds the name of the equation
-        option = new GLabel("Angular Momentum",20,20);
+        option = new GLabel("Gravitational Force",20,20);
         option.setFont(FONT);
         add(option);
 
