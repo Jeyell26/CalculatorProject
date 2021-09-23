@@ -127,7 +127,7 @@ public class Calculator extends GraphicsProgram {
     Boolean secondInstance = false;
     Boolean nInstance;
     Boolean wasEquals;
-
+    Boolean wasEquation;
     private void initBooleans(){
         isDeletable = false;
         wasNumber = false;
@@ -135,6 +135,7 @@ public class Calculator extends GraphicsProgram {
         performOperator = false;
         nInstance = false;
         wasEquals = false;
+        wasEquation = false;
         firstNext = true;
         Operand1 = "";
         Operand2 = "";
@@ -261,6 +262,7 @@ public class Calculator extends GraphicsProgram {
             e1.missingFormulaMenu();
             add(e1);
             eqBuffer = input;
+            wasEquation = true;
         }
 
         if(input.equals("E2 ")){
@@ -268,6 +270,7 @@ public class Calculator extends GraphicsProgram {
             e2.missingFormulaMenu();
             add(e2);
             eqBuffer = input;
+            wasEquation = true;
         }
 
         if(input.equals("E3 ")){
@@ -275,12 +278,14 @@ public class Calculator extends GraphicsProgram {
             e3.missingFormulaMenu();
             add(e3);
             eqBuffer = input;
+            wasEquation = true;
         }
         if(input.equals("E4 ")){
             resetFormulaMenu();
             e4.missingFormulaMenu();
             add(e4);
             eqBuffer = input;
+            wasEquation = true;
         }
 
         //        if(input.equals("E5 ")){
@@ -308,6 +313,7 @@ public class Calculator extends GraphicsProgram {
             calc.clearMainDisplay();
             System.out.println("Clear Element");
             wasNext = false;
+            wasEquation = false;
             return;
         }
         if (input.equals("C")) {
@@ -411,6 +417,12 @@ public class Calculator extends GraphicsProgram {
         }
 
         if(input.equals("=") || input.equals("+") || input.equals("-") || input.equals("÷") || input.equals("x")){
+
+            //If previous input was an equation
+            if(wasEquation){
+                removeAllMenus();
+            }
+
             // If previous input was a operator
             if(wasOperator){
                 calc.delOneMemo();
