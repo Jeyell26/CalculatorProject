@@ -280,8 +280,8 @@ public class Calculator extends GraphicsProgram {
         remove(e2);
         remove(e3);
         remove(e4);
-//        remove(e5);
-//        remove(e6);
+        remove(e5);
+        remove(e6);
     }
 
     // Is used for removing all formula menus before placing a new one as well as clearing both memo and main display
@@ -294,8 +294,8 @@ public class Calculator extends GraphicsProgram {
         remove(e2);
         remove(e3);
         remove(e4);
-//        remove(e5);
-//        remove(e6);
+        remove(e5);
+        remove(e6);
     }
 
     private void processButton(){
