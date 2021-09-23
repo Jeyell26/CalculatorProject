@@ -12,6 +12,8 @@ public class Calculator extends GraphicsProgram {
     ConstantAngularAcceleration e3 = new ConstantAngularAcceleration();
     // Global Variable for Equation 4
     AngularMomentum e4 = new AngularMomentum();
+    // Global Variable for Equation 5
+    GravitationalForce e5 = new GravitationalForce();
 
     // Main calculator variable
     CalculatorLayout calc = new CalculatorLayout(680);
@@ -228,6 +230,27 @@ public class Calculator extends GraphicsProgram {
         }
     }
 
+    private void performE5(int missingVar){
+        if(missingVarIndex==(missingVar-1)){
+            missingVarIndex++;
+        }
+        remove(e5);
+        if(missingVarIndex==e5.numOfMissingVar){
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e5.getVariable(missingVar-1) + ": " + e5.generateFormula(String.valueOf(missingVar)));
+            missingVarIndex = 0;
+        }
+        else{
+            calc.clearMemoDisplay();
+            calc.clearNumBuffer();
+            calc.setMainDisplay("0");
+            calc.setMemoDisplay(e5.getVariable(missingVarIndex) + ": ");
+            missingVarIndex++;
+        }
+    }
+
     private void removeAllMenus()
     {
         remove(e1);
@@ -288,15 +311,13 @@ public class Calculator extends GraphicsProgram {
             wasEquation = true;
         }
 
-        //        if(input.equals("E5 ")){
-//            remove(e1);
-//            missingVarIndex = 0;
-//            calc.clearMemoDisplay();
-//            calc.clearMainDisplay();
-//            e5.missingFormulaMenu();
-//            add(e5);
-//            eqBuffer = input;
-//        }
+        if(input.equals("E5 ")){
+            resetFormulaMenu();
+            e5.missingFormulaMenu();
+            add(e5);
+            eqBuffer = input;
+            wasEquation = true;
+        }
 
         //        if(input.equals("E6 ")){
 //            remove(e1);
@@ -405,9 +426,11 @@ public class Calculator extends GraphicsProgram {
                         e4.setVariable(e4.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
                     performE4(Integer.parseInt(varChoice));
                 }
-//                else if(eqBuffer.equals("E5 ")){
-//                    performE5(Integer.parseInt(varChoice));
-//                }
+                else if(eqBuffer.equals("E5 ")){
+                    if(!firstNext)
+                        e5.setVariable(e5.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
+                    performE5(Integer.parseInt(varChoice));
+                }
 //                else if(eqBuffer.equals("E6 ")){
 //                    performE6(Integer.parseInt(varChoice));
 //                }
