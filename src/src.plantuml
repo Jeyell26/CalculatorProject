@@ -1,24 +1,72 @@
 @startuml
 
-title __SRC's Class Diagram__\n
+title Engineering Calculator\n
 
+    abstract class AFormula {
+        # FONT : String
+        # option : GLabel
+        # temp : double
+        # unknown : String
+        {abstract} + generateFormula()
+        {abstract} + getVariable()
+        {abstract} + missingFormulaMenu()
+        {abstract} + setVariable()
+    }
+
+  
+
+    class AngularMomentum {
+        + numOfMissingVar : int
+        - a : double
+        - d : double
+        - l : double
+        - m : double
+        - v : double
+        - varList : String[]
+        + findA()
+        + findD()
+        + findL()
+        + findM()
+        + findV()
+        + generateFormula()
+        + getA()
+        + getD()
+        + getL()
+        + getM()
+        + getV()
+        + getVariable()
+        + missingFormulaMenu()
+        + setA()
+        + setD()
+        + setL()
+        + setM()
+        + setV()
+        + setVariable()
+    }
+
+  
 
     class Calculator {
         ~ Operand1 : String
         ~ Operand2 : String
         ~ db1 : double
         ~ db2 : double
+        ~ eqBuffer : String
         ~ firstInstance : Boolean
+        ~ firstNext : boolean
         ~ input : String
         ~ int1 : int
         ~ int2 : int
         ~ isDeletable : Boolean
+        ~ missingVarIndex : int
         ~ nInstance : Boolean
         ~ object : GObject
         ~ opBuffer : char
         ~ performOperator : Boolean
         ~ secondInstance : Boolean
+        ~ varChoice : String
         ~ wasEquals : Boolean
+        ~ wasEquation : Boolean
         ~ wasNumber : Boolean
         ~ wasOperator : Boolean
         + mouseClicked()
@@ -27,18 +75,28 @@ title __SRC's Class Diagram__\n
         + run()
         - initBooleans()
         {static} - isNumeric()
+        - performE1()
+        - performE2()
+        - performE3()
+        - performE4()
+        - performE5()
+        - performE6()
         - processButton()
+        - removeAllMenus()
+        - resetFormulaMenu()
+        - wrongInput()
     }
 
   
 
-
     class CalculatorLayout {
+        - HEIGHT : int
         {static} - MAIN_FONT : String
         {static} - MARGIN : int
         {static} - MEMO_FONT : String
         {static} - NCOLS : int
         {static} - NROWS : int
+        - WIDTH : int
         {static} - labels : char[]
         - mainDisplay : GLabel
         - memoBuffer : StringBuilder
@@ -53,7 +111,9 @@ title __SRC's Class Diagram__\n
         + delOneMain()
         + delOneMemo()
         + deleteOneCharacter()
+        + getHEIGHT()
         + getMainDisplay()
+        + getWIDTH()
         + negateElement()
         + setMainDisplay()
         + setMainDisplay()
@@ -61,8 +121,149 @@ title __SRC's Class Diagram__\n
         + setMemoDisplay()
     }
 
+
+    class ConstantAngularAcceleration {
+        + numOfMissingVar : int
+        - aa : double
+        - fav : double
+        - iav : double
+        - t : double
+        - varList : String[]
+        + findAA()
+        + findFAV()
+        + findIAV()
+        + findT()
+        + generateFormula()
+        + getAA()
+        + getFAV()
+        + getIAV()
+        + getT()
+        + getVariable()
+        + missingFormulaMenu()
+        + setAA()
+        + setFAV()
+        + setIAV()
+        + setT()
+        + setVariable()
+    }
+
   
 
+    class FinalPositionFormula {
+        + numOfMissingVar : int
+        - V0 : double
+        - X0 : double
+        - Xf : double
+        - a : double
+        - t : double
+        - varList : String[]
+        + findA()
+        + findT()
+        + findV0()
+        + findX0()
+        + findXF()
+        + generateFormula()
+        + getA()
+        + getT()
+        + getV0()
+        + getVariable()
+        + getX0()
+        + getXf()
+        + missingFormulaMenu()
+        + setA()
+        + setT()
+        + setV0()
+        + setVariable()
+        + setX0()
+        + setXf()
+    }
+
+
+    class FinalVelocityFormula {
+        + numOfMissingVar : int
+        - V0 : double
+        - Vf : double
+        - X0 : double
+        - Xf : double
+        - a : double
+        - varList : String[]
+        + FinalVelocityFormula()
+        + findA()
+        + findV0()
+        + findVF()
+        + findX0()
+        + findXF()
+        + generateFormula()
+        + getA()
+        + getV0()
+        + getVariable()
+        + getVf()
+        + getX0()
+        + getXf()
+        + missingFormulaMenu()
+        + setA()
+        + setV0()
+        + setVariable()
+        + setVf()
+        + setX0()
+        + setXf()
+    }
+
+
+    class GravitationalForce {
+        + numOfMissingVar : int
+        - f : double
+        - g : double
+        - m1 : double
+        - m2 : double
+        - r : double
+        - varList : String[]
+        + findF()
+        + findM1()
+        + findM2()
+        + findR()
+        + generateFormula()
+        + getF()
+        + getM1()
+        + getM2()
+        + getR()
+        + getVariable()
+        + missingFormulaMenu()
+        + setF()
+        + setM1()
+        + setM2()
+        + setR()
+        + setVariable()
+    }
+
+
+    class IdealGas {
+        + numOfMissingVar : int
+        - n : double
+        - p : double
+        - r : double
+        - t : double
+        - v : double
+        - varList : String[]
+        + findN()
+        + findP()
+        + findT()
+        + findV()
+        + generateFormula()
+        + getN()
+        + getP()
+        + getT()
+        + getV()
+        + getVariable()
+        + missingFormulaMenu()
+        + setN()
+        + setP()
+        + setT()
+        + setV()
+        + setVariable()
+    }
+
+  
 
     class MathHandler {
         {static} + add()
@@ -77,7 +278,6 @@ title __SRC's Class Diagram__\n
 
   
 
-
     class MyButton {
         {static} - FONT : String
         - key : GRect
@@ -91,17 +291,27 @@ title __SRC's Class Diagram__\n
 
   
 
+  AFormula -up-|> acm.graphics.GCompound
+  AngularMomentum -up-|> AFormula
   Calculator -up-|> acm.program.GraphicsProgram
   Calculator o-- CalculatorLayout : calc
+  Calculator o-- FinalPositionFormula : e1
+  Calculator o-- FinalVelocityFormula : e2
+  Calculator o-- ConstantAngularAcceleration : e3
+  Calculator o-- AngularMomentum : e4
+  Calculator o-- GravitationalForce : e5
+  Calculator o-- IdealGas : e6
   CalculatorLayout -up-|> acm.graphics.GCompound
+  ConstantAngularAcceleration -up-|> AFormula
+  FinalPositionFormula -up-|> AFormula
+  FinalVelocityFormula -up-|> AFormula
+  GravitationalForce -up-|> AFormula
+  IdealGas -up-|> AFormula
   MyButton -up-|> acm.graphics.GCompound
 
 
 right footer
 
-
-PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
-For more information about this tool, please contact philippe.mesmeur@gmail.com
 endfooter
 
 @enduml
