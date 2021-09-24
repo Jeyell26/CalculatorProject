@@ -36,8 +36,6 @@ public class Calculator extends GraphicsProgram {
     String varChoice;
     // Index for variable array in formula classes
     int missingVarIndex=0;
-    // Previous Command Used is Next
-    boolean wasNext = false;
 
     boolean firstNext = true;
 
@@ -354,7 +352,6 @@ public class Calculator extends GraphicsProgram {
             // clears main display
             calc.clearMainDisplay();
             System.out.println("Clear Element");
-            wasNext = false;
             wasEquation = false;
             return;
         }
@@ -367,7 +364,6 @@ public class Calculator extends GraphicsProgram {
             firstInstance = true;
             secondInstance = false;
             System.out.println("Clear Called");
-            wasNext = false;
             return;
         }
         if (input.equals("⌫") && isDeletable) {
@@ -380,22 +376,8 @@ public class Calculator extends GraphicsProgram {
             // To know which equation should be used to compute
             if((eqBuffer.equals("E1 ") || eqBuffer.equals("E2 ") || eqBuffer.equals("E3 ") || eqBuffer.equals("E4 ") || eqBuffer.equals("E5 ") || eqBuffer.equals("E6 ")) && missingVarIndex == 0){
                 varChoice = input;
-                wasNext = false;
             }
 
-// After pressing next - UPDATE: the setting of the value is put in the operator input "next" instead
-//            if(wasNext){
-//                if(eqBuffer.equals("E1 ")){
-//                    e1.setVariable(e1.getVariable(missingVarIndex-1),Double.parseDouble(input));
-//                    calc.setMainDisplay(input);
-//                    calc.setMemoDisplay(input);
-//                }
-//                if(eqBuffer.equals("E2 ")){
-//                    e2.setVariable(e2.getVariable(missingVarIndex-1),Double.parseDouble(input));
-//                    calc.setMainDisplay(input);
-//                    calc.setMemoDisplay(input);
-//                }
-//            }
             if(wasOperator){
                 calc.clearMainDisplay();
                 calc.setMainDisplay("0");
@@ -407,7 +389,6 @@ public class Calculator extends GraphicsProgram {
                 secondInstance = false;
             }
 
-            wasNext = false;
             wasOperator = false;
             wasNumber = true;
             wasEquals = false;
@@ -427,38 +408,76 @@ public class Calculator extends GraphicsProgram {
         // III. Operator Inputs;
         if(input.equals("Next ")){
             if(wasNumber){
+                int choice;
+                choice = Integer.parseInt(varChoice);
+
                 if(eqBuffer.equals("E1 ")){
                     if(!firstNext)
                         e1.setVariable(e1.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
-                    performE1(Integer.parseInt(varChoice));
+                    if(choice < 1 || choice > 5)
+                    {
+                        wrongInput();
+                        return;
+                    }
+                    else
+                        performE1(Integer.parseInt(varChoice));
                 }
                 else if(eqBuffer.equals("E2 ")){
                     if(!firstNext)
                         e2.setVariable(e2.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
-                    performE2(Integer.parseInt(varChoice));
+                    if(choice < 1 || choice > 5)
+                    {
+                        wrongInput();
+                        return;
+                    }
+                    else
+                        performE2(Integer.parseInt(varChoice));
                 }
                 else if(eqBuffer.equals("E3 ")){
                     if(!firstNext)
                         e3.setVariable(e3.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
-                    performE3(Integer.parseInt(varChoice));
+                    if(choice < 1 || choice > 4)
+                    {
+                        wrongInput();
+                        return;
+                    }
+                    else
+                        performE3(Integer.parseInt(varChoice));
                 }
                 else if(eqBuffer.equals("E4 ")){
                     if(!firstNext)
                         e4.setVariable(e4.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
-                    performE4(Integer.parseInt(varChoice));
+                    if(choice < 1 || choice > 5)
+                    {
+                        wrongInput();
+                        return;
+                    }
+                    else
+                        performE4(Integer.parseInt(varChoice));
                 }
                 else if(eqBuffer.equals("E5 ")){
                     if(!firstNext)
                         e5.setVariable(e5.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
-                    performE5(Integer.parseInt(varChoice));
+                    if(choice < 1 || choice > 4)
+                    {
+                        wrongInput();
+                        return;
+                    }
+                    else
+                        performE5(Integer.parseInt(varChoice));
                 }
                 else if(eqBuffer.equals("E6 ")){
                     if(!firstNext)
                         e6.setVariable(e6.getVariable(missingVarIndex-1),Double.parseDouble(calc.getMainDisplay()));
-                    performE6(Integer.parseInt(varChoice));
+                    if(choice < 1 || choice > 4)
+                    {
+                        wrongInput();
+                        return;
+                    }
+                    else
+                        performE6(Integer.parseInt(varChoice));
                 }
             }
-            wasNext=true;
             firstNext = false;
         }
 
@@ -552,4 +571,14 @@ public class Calculator extends GraphicsProgram {
             performOperator = true;
         }
     }
+
+    // Is called when the user does not choose from one of the choices when asked for the variable to solve
+    private void wrongInput()
+    {
+        System.out.println("Please choose from one of the choices");
+        firstNext = true;
+        calc.clearMainDisplay();
+    }
+
+
 }
