@@ -302,6 +302,7 @@ public class Calculator extends GraphicsProgram {
         // I. Handle special cases: Clear Element, Clear All, and  Delete
 
         if(input.equals("E1 ")){
+            firstNext = true;
             resetFormulaMenu();
             e1.missingFormulaMenu();
             add(e1);
@@ -310,6 +311,7 @@ public class Calculator extends GraphicsProgram {
         }
 
         if(input.equals("E2 ")){
+            firstNext = true;
             resetFormulaMenu();
             e2.missingFormulaMenu();
             add(e2);
@@ -318,6 +320,7 @@ public class Calculator extends GraphicsProgram {
         }
 
         if(input.equals("E3 ")){
+            firstNext = true;
             resetFormulaMenu();
             e3.missingFormulaMenu();
             add(e3);
@@ -325,6 +328,7 @@ public class Calculator extends GraphicsProgram {
             wasEquation = true;
         }
         if(input.equals("E4 ")){
+            firstNext = true;
             resetFormulaMenu();
             e4.missingFormulaMenu();
             add(e4);
@@ -333,6 +337,7 @@ public class Calculator extends GraphicsProgram {
         }
 
         if(input.equals("E5 ")){
+            firstNext = true;
             resetFormulaMenu();
             e5.missingFormulaMenu();
             add(e5);
@@ -341,6 +346,7 @@ public class Calculator extends GraphicsProgram {
         }
 
         if(input.equals("E6 ")){
+            firstNext = true;
             resetFormulaMenu();
             e6.missingFormulaMenu();
             add(e6);
@@ -356,6 +362,7 @@ public class Calculator extends GraphicsProgram {
             return;
         }
         if (input.equals("C")) {
+            firstNext = true;
             missingVarIndex = 0;
             calc.clearMainDisplay();
             calc.clearMemoDisplay();
